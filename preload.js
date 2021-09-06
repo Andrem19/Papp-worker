@@ -1,15 +1,5 @@
 const { ipcRenderer, contextBridge} = require('electron')
 
-contextBridge.exposeInMainWorld('electron', {
-    notificationApi: {
-        sendNotification(message) {
-            ipcRenderer.send('notify', message)
-        }
-    },
-    batteryApi: {
-
-    },
-    filesApi: {
-
-    }
+contextBridge.exposeInMainWorld("myApp", {
+    sayHello: (arg) => ipcRenderer.invoke("say-hello", arg)
 })

@@ -1,5 +1,6 @@
 const { BrowserWindow, app, ipcMain, Notification } = require('electron')
 const path = require('path')
+const loadData = require('./getdata/getData.js')
 
 const isDev = !app.isPackaged;
 
@@ -8,6 +9,7 @@ function createWindow() {
         width: 1200,
         height: 800,
         backgroundColor: "white",
+        // frame:false,
         webPreferences: {
             nodeIntegration: false,
             worldSafeExecuteJavaScript: true,
@@ -15,7 +17,7 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js')
         }
     })
-
+    // win.setMenu(null)
     win.loadFile('index.html')
 }
 if (isDev) {
@@ -24,7 +26,10 @@ if (isDev) {
     })
 }
 
-ipcMain.on('notify', (_, message) => {
- new Notification({title: 'Notification', body: message}).show();
+ipcMain.handle("say-hello", async (event, args) => {
+    loadData.startLoadData()
+    
+    return "Data loaded"
 })
+
 app.whenReady().then(createWindow)
