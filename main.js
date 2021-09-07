@@ -1,13 +1,15 @@
 const { BrowserWindow, app, ipcMain, Notification } = require('electron')
 const path = require('path')
+const fs = require('fs');
 const loadData = require('./getdata/getData.js')
+const pr = require('./res.js')
 
 const isDev = !app.isPackaged;
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 1200,
-        height: 800,
+        width: 500,
+        height: 500,
         backgroundColor: "white",
         // frame:false,
         webPreferences: {
@@ -27,9 +29,11 @@ if (isDev) {
 }
 
 ipcMain.handle("say-hello", async (event, args) => {
-    loadData.startLoadData()
-    
-    return "Data loaded"
+   await loadData.startLoadData()
+    return "Data Loaded"
 })
+ipcMain.handle("pred", async (event, args) => {
+    await pr.predict()
+ })
 
 app.whenReady().then(createWindow)
