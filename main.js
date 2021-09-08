@@ -3,13 +3,15 @@ const path = require('path')
 const fs = require('fs');
 const loadData = require('./getdata/getData.js')
 const pr = require('./res.js')
+const config = require('./getdata2/config.js')
+const loadData2 = require('./getdata2/getData.js')
 
 const isDev = !app.isPackaged;
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 500,
-        height: 500,
+        width: 1000,
+        height: 700,
         backgroundColor: "white",
         // frame:false,
         webPreferences: {
@@ -29,11 +31,17 @@ if (isDev) {
 }
 
 ipcMain.handle("say-hello", async (event, args) => {
-   await loadData.startLoadData()
-    return "Data Loaded"
+    date = new Date(args).getTime(),
+    await loadData2.startLoadData(date)
+    // return "Data Loaded"
 })
 ipcMain.handle("pred", async (event, args) => {
-    await pr.predict()
+    await loadData.startLoadData()
+    const prediction = await pr.predict()
+    console.log(prediction.join('-'));
+    const res = prediction.join('-')
+    // return "Hello Word"
+    // event.sender.send('asrepl', prediction)
  })
 
 app.whenReady().then(createWindow)
