@@ -12,12 +12,13 @@ const Predict = () => {
         //  setInfo(res)
         }
 
-    useEffect(() => {
+    useEffect( () => {
             ipcRenderer.on("wave:buffer", (event, data) => {
-                console.log(data);
                 setInfo(data)
+                console.log(info);
+                
             })
-     }, []);
+     }, [info]);
 
     return (
         <div>

@@ -29,7 +29,7 @@ if (isDev) {
         electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
     })
 }
-
+let globalCount = 0
 ipcMain.handle("say-hello", async (event, args) => {
     date = new Date(args).getTime(),
     await loadData2.startLoadData(date)
@@ -40,13 +40,19 @@ ipcMain.handle("say-hello", async (event, args) => {
 //     // return "Hello Word"
 //     // event.sender.send('asrepl', prediction)
 //  })
+
  ipcMain.on("get:file", async () => {
    await loadData.startLoadData()
     const prediction = await pr.predict()
-    // console.log(prediction.join('-'));
+    console.log(prediction.join('-'));
     const res = prediction.join('-')
-    console.log(res);
-    win.webContents.send("wave:buffer", res);
+    console.log(prediction)
+    globalCount ++
+    console.log(`${globalCount}`)
+
+    if (res.include("-")) {
+    await win.webContents.send("wave:buffer", prediction);
+    }
  })
 
 app.whenReady().then(createWindow)

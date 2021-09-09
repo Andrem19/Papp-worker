@@ -24,7 +24,7 @@ const newData = prediction.map(item => (item.toFixed(3) * 1000))
 //    arr.push(data[i])
 // }
 
-// console.log(newData);
+//console.log(newData);
 
 return newData
 }
