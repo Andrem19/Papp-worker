@@ -79,5 +79,6 @@ const download = async (date) => {
 };
 exports.startLoadData = async (date) => {
  await download(date)
- await convert.toJson()
+ const newJson = await convert.toJson()
+ return newJson
 }

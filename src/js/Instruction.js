@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
+const { ipcRenderer } = require("electron")
+import './index.scss'
+
 
 const Instruction = () => {
-    const [info, setInfo] = useState('')
 
-    const clickHandler = () => {
-        setInfo("Hello")
-    }
+const messageBox = () => {
+    ipcRenderer.send("message-box", {});
+}
+
     return (
-        <div>
-            <div>{info}</div>
-            <button onClick={clickHandler}>Just Button</button>
+        <div className="date">
+            <button onClick={messageBox}>Message</button>
+            
         </div>
     );
 }
