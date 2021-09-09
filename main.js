@@ -34,20 +34,23 @@ if (isDev) {
     })
 }
 ipcMain.on("download-data", async (event, args) => {
-    date = new Date(args).getTime()
-    await loadData2.startLoadData(date)
+    await loadData2.startLoadData(args)
+    console.log(args);
+const fileFrom2 = await JSON.parse(fs.readFileSync('bull0.json'))
+const fileFrom = await JSON.parse(fs.readFileSync('bull1.json'))
 
     const { filePath } = await dialog.showSaveDialog({
         buttonLabel: 'Save File',
         defaultPath: `binance-${Date.now()}.json`
       });
-      if (filePath) {
-        // pathToFile = "./bull/bull1.json"
-        const fileFrom = await JSON.parse(fs.readFileSync('bull1.json'))
-        console.log("newData: ", fileFrom);
-        fs.writeFileSync(filePath, JSON.stringify(fileFrom), () => console.log('file saved successfully!'));
-      }
+      if (filePath && args.fullData === 'full') {
 
+        fs.writeFileSync(filePath, JSON.stringify(fileFrom2), () => console.log('file saved successfully!'));
+      } else if(filePath && args.fullData === 'cut') {
+        fs.writeFileSync(filePath, JSON.stringify(fileFrom), () => console.log('file saved successfully!'));
+
+    }
+    
 })
 
  ipcMain.on("get:file", async () => {

@@ -23,9 +23,7 @@ module.exports = {
       '1M':30*24*60*60*1000,
     },
     getPrameters(){
-      return {  symbol:this.symbol,
-                timeframe:this.timeframe,
-                fileName:this.fileName,
+      return {  fileName:this.fileName,
                 tfw:this.tfw}
     }
   }

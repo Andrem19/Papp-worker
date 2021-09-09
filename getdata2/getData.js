@@ -41,13 +41,13 @@ const wrapKline = limiter.wrap(getKline);
 // Business Logic
 const download = async (date) => {
   const {
-    symbol,
-    timeframe,
     fileName,
     tfw,
   } = config.getPrameters();
-  const fromTS = date - 36000000
-  const toTS = date
+  const timeframe = date.candelsSize
+  const symbol = date.symbol
+  const fromTS = new Date(date.dateFrom).getTime()
+  const toTS = new Date(date.dateTo).getTime()
   const reqA = getReqArray({ symbol, fromTS, toTS, timeframe, tfw });
   log(`Total No. API Requests to process => ${reqA.length}`);
   log(`Initiating download...`);
