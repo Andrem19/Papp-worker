@@ -19,7 +19,7 @@ const newJson = await dataJson.map(item => (
   Math.round(item.Close) /1000
 ))
 
-  fs.writeFileSync("../bull/bear2.json", JSON.stringify(newJson), 'utf8')
+fs.writeFileSync("../bull/bear2.json", JSON.stringify(newJson), 'utf8')
 }
 filter()
 }

@@ -7,17 +7,17 @@ const config = require('./getdata2/config.js')
 const loadData2 = require('./getdata2/getData.js')
 
 const isDev = !app.isPackaged;
-
+let win
 function createWindow() {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 1000,
         height: 700,
         backgroundColor: "white",
         // frame:false,
         webPreferences: {
-            nodeIntegration: false,
+            nodeIntegration: true,
             worldSafeExecuteJavaScript: true,
-            contextIsolation: true,
+            contextIsolation: false,
             preload: path.join(__dirname, 'preload.js')
         }
     })
@@ -35,13 +35,18 @@ ipcMain.handle("say-hello", async (event, args) => {
     await loadData2.startLoadData(date)
     // return "Data Loaded"
 })
-ipcMain.handle("pred", async (event, args) => {
-    await loadData.startLoadData()
+// ipcMain.handle("pred", async (event, args) => {
+    
+//     // return "Hello Word"
+//     // event.sender.send('asrepl', prediction)
+//  })
+ ipcMain.on("get:file", async () => {
+   await loadData.startLoadData()
     const prediction = await pr.predict()
-    console.log(prediction.join('-'));
+    // console.log(prediction.join('-'));
     const res = prediction.join('-')
-    // return "Hello Word"
-    // event.sender.send('asrepl', prediction)
+    console.log(res);
+    win.webContents.send("wave:buffer", res);
  })
 
 app.whenReady().then(createWindow)

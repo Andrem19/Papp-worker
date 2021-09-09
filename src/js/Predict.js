@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+const { ipcRenderer } = require("electron")
 
 const Predict = () => {
 
     const [info, setInfo] = useState('Here will be a prediction')
 
     const predictStatrt = async (e) => {
-        e.preventDefault()
-        const res = await myApp.startPredict()
+        ipcRenderer.send("get:file", { });
         // console.log(res)
     
         //  setInfo(res)
         }
+
+    useEffect(() => {
+            ipcRenderer.on("wave:buffer", (event, data) => {
+                console.log(data);
+                setInfo(data)
+            })
+     }, []);
 
     return (
         <div>
