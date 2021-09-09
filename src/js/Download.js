@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import DateTimePicker from 'react-datetime-picker'
 import 'react-datepicker/dist/react-datepicker.css'
+const { ipcRenderer } = require("electron")
 
 const Download = () => {
     const [selectedDate, setSelectedDate] = useState(null)
 
     const onHandleCklick = async () => {
-        const result = await myApp.sayHello(selectedDate)
-        console.log(selectedDate)
+        ipcRenderer.send("download-data", selectedDate);
        }
 
     return (

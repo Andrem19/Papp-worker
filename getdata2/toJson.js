@@ -18,8 +18,8 @@ const filter = async () => {
 const newJson = await dataJson.map(item => (
   Math.round(item.Close) /1000
 ))
-
-fs.writeFileSync("../bull/bear2.json", JSON.stringify(newJson), 'utf8')
+let filepath = "/home/andrew/CODE/JS/MACHINE_LEARNING/LSTM/predict_price/Papp-worker/bull/bull1.json"
+fs.writeFileSync(filepath, JSON.stringify(newJson), 'utf8')
 }
 filter()
 }

@@ -5,6 +5,9 @@ const loadData = require('./getdata/getData.js')
 const pr = require('./res.js')
 const config = require('./getdata2/config.js')
 const loadData2 = require('./getdata2/getData.js')
+const EventEmitter = require('events');
+
+const eventEmitter = new EventEmitter ();
 
 const isDev = !app.isPackaged;
 let win
@@ -18,7 +21,6 @@ function createWindow() {
             nodeIntegration: true,
             worldSafeExecuteJavaScript: true,
             contextIsolation: false,
-            preload: path.join(__dirname, 'preload.js')
         }
     })
     // win.setMenu(null)
@@ -29,30 +31,27 @@ if (isDev) {
         electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
     })
 }
-let globalCount = 0
-ipcMain.handle("say-hello", async (event, args) => {
+ipcMain.on("download-data", async (event, args) => {
     date = new Date(args).getTime(),
     await loadData2.startLoadData(date)
-    // return "Data Loaded"
+
 })
-// ipcMain.handle("pred", async (event, args) => {
-    
-//     // return "Hello Word"
-//     // event.sender.send('asrepl', prediction)
-//  })
 
  ipcMain.on("get:file", async () => {
    await loadData.startLoadData()
-    const prediction = await pr.predict()
+   eventEmitter.emit('greet');
+
+ })
+ ipcMain.on("get-predict", async () => {
+const prediction = await pr.predict()
     console.log(prediction.join('-'));
     const res = prediction.join('-')
-    console.log(prediction)
-    globalCount ++
-    console.log(`${globalCount}`)
+ win.webContents.send("data-ready", res);
+  })
 
-    if (res.include("-")) {
-    await win.webContents.send("wave:buffer", prediction);
-    }
- })
+  
+  eventEmitter.on('greet', async() => {
+    console.log("Hi from Emmiter");
+      });
 
 app.whenReady().then(createWindow)

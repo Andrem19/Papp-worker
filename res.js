@@ -18,13 +18,7 @@ const prediction = await loadingModel.predict(testPredictValue).data()
 
 const newData = prediction.map(item => (item.toFixed(3) * 1000))
 
-// const data2 = data.map(item => [item])
-// let arr = []
-// for (i=0; i<12; i++) {
-//    arr.push(data[i])
-// }
-
-//console.log(newData);
+// win.webContents.send("wave:buffer", prediction);
 
 return newData
 }
