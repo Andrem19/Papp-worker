@@ -9,7 +9,7 @@ const Download = () => {
     const [dateFrom, setDateFrom] = useState(null)
     const [candelsSize, setCandelsSize] = useState('')
     const [symbol, setSymbol] = useState('')
-    const [full, setFull] = useState("full")
+    const [full, setFull] = useState("")
 
     const onHandleCklick = async () => {
         const form = {
@@ -33,14 +33,16 @@ const Download = () => {
         setFull(JSON.parse(localStorage.getItem('full')));
        }, []);
 
+
     return (
         <div className="date">
 
-            <p>Symbol (ex: BTCUSDT)</p>
-            <input defaultValue="BTCUSDT" value={symbol} onChange={event => setSymbol(event.target.value)} />
+            <p className="par">Symbol (ex: BTCUSDT)</p>
+            <input className="inputs" defaultValue="BTCUSDT" value={symbol} onChange={event => setSymbol(event.target.value)} />
 
-            <p>Candels Size (ex: 5m)</p>
-            <input defaultValue="5m" value={candelsSize} onChange={event => setCandelsSize(event.target.value)} />
+            <p className="par">Candels Size (ex: 1m, 3m, 5m, 15m, 
+            <br/>30m, 1h, 2h, 4h, 8h, 12h, 1d, 3d, 1w, 1M)</p>
+            <input className="inputs" defaultValue="5m" value={candelsSize} onChange={event => setCandelsSize(event.target.value)} />
 
         <div>Date From:</div>
         <DateTimePicker
@@ -53,8 +55,11 @@ const Download = () => {
         onChange={date => setDateTo(date)}
         value={dateTo}
          />
-     <p>Full or cut data? (ex: full/cut)</p>
-            <input defaultValue="full" value={full} onChange={event => setFull(event.target.value)} />
+    
+     <div onChange={event => setFull(event.target.value)}>
+       Full Data <input type="radio" value="full" name="full" /> 
+       Cut Data <input type="radio" value="cut" name="full" /> 
+      </div>
 
            <button className="btn btn-primary button " onClick={onHandleCklick}>LOAD DATA</button>
            

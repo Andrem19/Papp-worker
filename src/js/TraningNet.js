@@ -3,7 +3,7 @@ const { ipcRenderer } = require("electron")
 import './index.scss'
 
 
-const Instruction = () => {
+const TraningNet = () => {
 
 const messageBox = () => {
     ipcRenderer.send("message-box", {});
@@ -17,4 +17,4 @@ const messageBox = () => {
     );
 }
 
-export default Instruction;
+export default TraningNet;

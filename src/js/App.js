@@ -10,7 +10,7 @@ import Box from '@material-ui/core/Box';
 import Download from './Download';
 import Predict from './Predict';
 import './index.scss'
-import Instruction from './Instruction';
+import TraningNet from './TraningNet';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,7 +80,7 @@ export default function App() {
         >
           <Tab label="Download Data" {...a11yProps(0)} />
           <Tab label="Predict" {...a11yProps(1)} />
-          <Tab label="Instructions" {...a11yProps(2)} />
+          <Tab label="Traning Net" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -96,7 +96,7 @@ export default function App() {
           <Predict />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Instruction />
+          <TraningNet />
         </TabPanel>
       </SwipeableViews>
     </div>
