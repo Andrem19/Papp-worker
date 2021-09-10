@@ -11,7 +11,9 @@ const messageBox = () => {
 
     return (
         <div className="date">
-            <button onClick={messageBox}>Message</button>
+            <button className="btn btn-primary" onClick={messageBox}>Choose X File</button>
+            <button className="button btn btn-primary" onClick={messageBox}>Choose Y File</button>
+            <button className="button btn btn-primary" onClick={messageBox}>TRANING</button>
             
         </div>
     );

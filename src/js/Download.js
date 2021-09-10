@@ -57,8 +57,14 @@ const Download = () => {
          />
     
      <div onChange={event => setFull(event.target.value)}>
-       Full Data <input type="radio" value="full" name="full" /> 
-       Cut Data <input type="radio" value="cut" name="full" /> 
+     <div class="form-check form-check-inline">
+  <input class="form-check-input" value="full" type="radio" name="inlineRadioOptions" id="inlineRadio2" />
+  <label class="form-check-label" for="inlineRadio2">Full Data</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" value="cut" type="radio" name="inlineRadioOptions" id="inlineRadio3" />
+  <label class="form-check-label" for="inlineRadio3">Cut Data</label>
+</div>
       </div>
 
            <button className="btn btn-primary button " onClick={onHandleCklick}>LOAD DATA</button>

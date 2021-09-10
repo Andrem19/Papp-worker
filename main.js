@@ -14,8 +14,8 @@ const isDev = !app.isPackaged;
 let win
 function createWindow() {
     win = new BrowserWindow({
-        width: 1000,
-        height: 700,
+        width: 600,
+        height: 500,
         backgroundColor: "white",
         // frame:false,
         webPreferences: {
@@ -35,7 +35,6 @@ if (isDev) {
 }
 ipcMain.on("download-data", async (event, args) => {
     await loadData2.startLoadData(args)
-    console.log(args);
 const fileFrom2 = await JSON.parse(fs.readFileSync('bull0.json'))
 const fileFrom = await JSON.parse(fs.readFileSync('bull1.json'))
 
